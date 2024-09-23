@@ -1,9 +1,7 @@
-// App.tsx
-import React from 'react'
 import { useJsonContext } from '../context/JsonContext'
 
-export const JsonInput: React.FC = () => {
-  const { json, setJson, isValid } = useJsonContext()
+export const JsonInput = () => {
+  const { json, setJson } = useJsonContext()
 
   return (
     <div>
@@ -14,7 +12,6 @@ export const JsonInput: React.FC = () => {
         cols={30}
         placeholder='Type your JSON here...'
       />
-      <p>{isValid ? 'JSON is valid!' : 'JSON is invalid.'}</p>
     </div>
   )
 }

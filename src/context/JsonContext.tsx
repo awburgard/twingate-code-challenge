@@ -1,16 +1,14 @@
-// JsonContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 import Ajv, { JSONSchemaType } from 'ajv'
 import { Content } from '../types'
 
-// Define the context type
 interface JsonContextType {
   json: string
   setJson: (value: string) => void
   isValid: boolean
+  parsedJson: Content[] | null
 }
 
-// Create the context
 const JsonContext = createContext<JsonContextType | undefined>(undefined)
 
 const schema: JSONSchemaType<Content[]> = {
@@ -56,6 +54,7 @@ export const JsonProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [json, setJson] = useState('')
   const [isValid, setIsValid] = useState(false)
+  const [parsedJson, setParsedJson] = useState<Content[] | null>(null)
 
   const validateJson = (jsonString: string) => {
     const ajv = new Ajv()
@@ -64,10 +63,11 @@ export const JsonProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const data = JSON.parse(jsonString)
       const valid = validate(data)
-      console.log({ valid })
       setIsValid(valid)
+      setParsedJson(valid ? data : null)
     } catch {
       setIsValid(false)
+      setParsedJson(null)
     }
   }
 
@@ -77,13 +77,19 @@ export const JsonProvider: React.FC<{ children: ReactNode }> = ({
   }
 
   return (
-    <JsonContext.Provider value={{ json, setJson: handleSetJson, isValid }}>
+    <JsonContext.Provider
+      value={{
+        json,
+        setJson: handleSetJson,
+        isValid,
+        parsedJson,
+      }}
+    >
       {children}
     </JsonContext.Provider>
   )
 }
 
-// Custom hook to use the JSON context
 export const useJsonContext = () => {
   const context = useContext(JsonContext)
   if (context === undefined) {

@@ -6,8 +6,16 @@ import { LandingPageContainer } from './features/LandingPage'
 function App() {
   return (
     <JsonProvider>
-      <JsonInput />
-      <LandingPageContainer />
+      <div
+        style={{
+          display: 'flex',
+          alignContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <JsonInput />
+        <LandingPageContainer />
+      </div>
     </JsonProvider>
   )
 }
