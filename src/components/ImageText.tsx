@@ -1,6 +1,20 @@
 import Grid from '@mui/material/Grid2'
+import Box from '@mui/material/Box'
 import { CardComponent } from './Card'
 import { HeroImage } from './HeroImage'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material'
+
+const StyledContainer = styled(Box)<{ leftToRight?: boolean }>(
+  ({ leftToRight }) => ({
+    display: 'flex',
+    flexDirection: leftToRight ? 'row' : 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  })
+)
 
 export const ImageText = ({
   imageURI,
@@ -15,57 +29,11 @@ export const ImageText = ({
 }) => {
   return (
     <Grid size={12}>
-      <CardComponent>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: leftToRight ? 'row' : 'row-reverse',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '50%',
-              height: '100%',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              {title && <h1>{title}</h1>}
-              <p
-                style={{
-                  width: '80%',
-                  textAlign: 'center',
-                }}
-              >
-                {text}
-              </p>
-            </div>
-          </div>
-          <div
-            style={{
-              width: '50%',
-              height: '100%',
-            }}
-          >
-            <HeroImage imageURI={imageURI} />
-          </div>
-        </div>
+      <CardComponent title={title}>
+        <StyledContainer leftToRight={leftToRight}>
+          <Typography>{text}</Typography>
+          <HeroImage imageURI={imageURI} />
+        </StyledContainer>
       </CardComponent>
     </Grid>
   )

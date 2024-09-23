@@ -1,23 +1,29 @@
 import Grid from '@mui/material/Grid2'
 import { DataComponent } from '../components/Data'
-import ErrorBoundary from '../components/ErrorBoundary'
 import { HeroImage } from '../components/HeroImage'
 import { ImageText } from '../components/ImageText'
 import { useJsonContext } from '../context/JsonContext'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material'
+
+const StyledContainer = styled(Grid)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  padding: theme.spacing(3),
+}))
 
 export const LandingPageContainer = () => {
   const { parsedJson, isValid } = useJsonContext()
 
-  return (
-    <ErrorBoundary fallback={<div>Error in your JSON</div>}>
-      <LandingPagePresentation content={parsedJson} />
-    </ErrorBoundary>
-  )
+  if (!isValid || !parsedJson || parsedJson.length === 0) {
+    return <Typography color='error'>Invalid JSON</Typography>
+  }
+
+  return <LandingPagePresentation content={parsedJson} />
 }
 
 const LandingPagePresentation = ({ content }: { content: any[] | null }) => {
   return (
-    <Grid container spacing={2}>
+    <StyledContainer container spacing={2}>
       {content
         ? content.map((item, index) => {
             switch (item.type) {
@@ -40,6 +46,6 @@ const LandingPagePresentation = ({ content }: { content: any[] | null }) => {
             }
           })
         : null}
-    </Grid>
+    </StyledContainer>
   )
 }
