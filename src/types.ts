@@ -16,10 +16,4 @@ interface Data {
   url: string
 }
 
-export type Content<TType> = TType extends HeroImage
-  ? HeroImage
-  : TType extends ImageText
-  ? ImageText
-  : TType extends Data
-  ? Data
-  : never
+export type Content = HeroImage | ImageText | Data

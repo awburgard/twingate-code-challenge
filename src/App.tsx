@@ -1,13 +1,14 @@
 import './App.css'
-import { EditorContainer } from './features/Editor'
+import { JsonProvider } from './context/JsonContext'
+import { JsonInput } from './features/Editor'
 import { LandingPageContainer } from './features/LandingPage'
 
 function App() {
   return (
-    <div>
-      <EditorContainer />
+    <JsonProvider>
+      <JsonInput />
       <LandingPageContainer />
-    </div>
+    </JsonProvider>
   )
 }
 
