@@ -1,3 +1,5 @@
+import Grid from '@mui/material/Grid2'
+import { CardComponent } from './Card'
 import { HeroImage } from './HeroImage'
 
 export const ImageText = ({
@@ -12,55 +14,59 @@ export const ImageText = ({
   leftToRight?: boolean
 }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: leftToRight ? 'row' : 'row-reverse',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '50%',
-          height: '100%',
-        }}
-      >
+    <Grid size={12}>
+      <CardComponent>
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: leftToRight ? 'row' : 'row-reverse',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
             height: '100%',
           }}
         >
-          {title && <h1>{title}</h1>}
-          <p
+          <div
             style={{
-              width: '80%',
-              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '50%',
+              height: '100%',
             }}
           >
-            {text}
-          </p>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              {title && <h1>{title}</h1>}
+              <p
+                style={{
+                  width: '80%',
+                  textAlign: 'center',
+                }}
+              >
+                {text}
+              </p>
+            </div>
+          </div>
+          <div
+            style={{
+              width: '50%',
+              height: '100%',
+            }}
+          >
+            <HeroImage imageURI={imageURI} />
+          </div>
         </div>
-      </div>
-      <div
-        style={{
-          width: '50%',
-          height: '100%',
-        }}
-      >
-        <HeroImage imageURI={imageURI} />
-      </div>
-    </div>
+      </CardComponent>
+    </Grid>
   )
 }

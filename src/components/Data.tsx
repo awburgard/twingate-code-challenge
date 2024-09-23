@@ -1,25 +1,39 @@
-// this is an awful name for a component
-export const Data = ({ url }: { url: string }) => {
-  // fetch the data from the url
-  // refetch the data when the button is clicked
-  const refetch = () => {
-    console.log('refetching')
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid2'
+import useFetch from '../hooks/useFetch'
+import { CardComponent } from './Card'
+
+interface DataComponentProps {
+  url: string
+}
+
+export const DataComponent = ({ url }: DataComponentProps) => {
+  const { data, refetch } = useFetch(url)
+
+  if (!data) {
+    return <p>Loading...</p>
   }
+
+  return <Data data={data} refetch={refetch} />
+}
+
+interface DataProps {
+  data: any
+  refetch: () => void
+}
+
+const Data = ({ data, refetch }: DataProps) => {
   return (
-    <>
-      <button onClick={refetch}>Refresh</button>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-          width: '100%',
-          backgroundImage: `url(${url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-    </>
+    <Grid size={12}>
+      <CardComponent
+        actions={[
+          <Button onClick={refetch} variant='outlined'>
+            Refresh
+          </Button>,
+        ]}
+      >
+        {JSON.stringify(data, null, 2)}
+      </CardComponent>
+    </Grid>
   )
 }

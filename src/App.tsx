@@ -1,4 +1,4 @@
-import './App.css'
+import Grid from '@mui/material/Grid2'
 import { JsonProvider } from './context/JsonContext'
 import { JsonInput } from './features/Editor'
 import { LandingPageContainer } from './features/LandingPage'
@@ -6,16 +6,14 @@ import { LandingPageContainer } from './features/LandingPage'
 function App() {
   return (
     <JsonProvider>
-      <div
-        style={{
-          display: 'flex',
-          alignContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <JsonInput />
-        <LandingPageContainer />
-      </div>
+      <Grid container spacing={2}>
+        <Grid size={6}>
+          <JsonInput />
+        </Grid>
+        <Grid size={6}>
+          <LandingPageContainer />
+        </Grid>
+      </Grid>
     </JsonProvider>
   )
 }

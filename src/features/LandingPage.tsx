@@ -1,4 +1,5 @@
-import { Data } from '../components/Data'
+import Grid from '@mui/material/Grid2'
+import { DataComponent } from '../components/Data'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { HeroImage } from '../components/HeroImage'
 import { ImageText } from '../components/ImageText'
@@ -8,7 +9,7 @@ export const LandingPageContainer = () => {
   const { parsedJson, isValid } = useJsonContext()
 
   return (
-    <ErrorBoundary fallback={<div>Error</div>}>
+    <ErrorBoundary fallback={<div>Error in your JSON</div>}>
       <LandingPagePresentation content={parsedJson} />
     </ErrorBoundary>
   )
@@ -16,31 +17,29 @@ export const LandingPageContainer = () => {
 
 const LandingPagePresentation = ({ content }: { content: any[] | null }) => {
   return (
-    <div>
-      {content ? (
-        content.map((item, index) => {
-          switch (item.type) {
-            case 'hero':
-              return <HeroImage key={index} imageURI={item.imageURI} />
-            case 'image-text':
-              return (
-                <ImageText
-                  key={index}
-                  imageURI={item.imageURI}
-                  text={item.text}
-                  title={item.title}
-                  leftToRight={item.leftToRight}
-                />
-              )
-            case 'data':
-              return <Data key={index} url={item.url} />
-            default:
-              return null
-          }
-        })
-      ) : (
-        <p>start typing up your landing page!</p>
-      )}
-    </div>
+    <Grid container spacing={2}>
+      {content
+        ? content.map((item, index) => {
+            switch (item.type) {
+              case 'hero':
+                return <HeroImage key={index} imageURI={item.imageURI} />
+              case 'image-text':
+                return (
+                  <ImageText
+                    key={index}
+                    imageURI={item.imageURI}
+                    text={item.text}
+                    title={item.title}
+                    leftToRight={item.leftToRight}
+                  />
+                )
+              case 'data':
+                return <DataComponent key={index} url={item.url} />
+              default:
+                return null
+            }
+          })
+        : null}
+    </Grid>
   )
 }

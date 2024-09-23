@@ -1,17 +1,16 @@
 import { useJsonContext } from '../context/JsonContext'
+import TextField from '@mui/material/TextField'
 
 export const JsonInput = () => {
   const { json, setJson } = useJsonContext()
 
   return (
-    <div>
-      <textarea
-        value={json}
-        onChange={(e) => setJson(e.target.value)}
-        rows={10}
-        cols={30}
-        placeholder='Type your JSON here...'
-      />
-    </div>
+    <TextField
+      type='textarea'
+      value={json}
+      onChange={(e) => setJson(e.target.value)}
+      multiline
+      placeholder='Type your JSON here...'
+    />
   )
 }
